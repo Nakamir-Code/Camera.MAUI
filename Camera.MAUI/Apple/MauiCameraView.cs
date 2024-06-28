@@ -129,7 +129,7 @@ internal class MauiCameraView : UIView, IAVCaptureVideoDataOutputSampleBufferDel
                         {
                             352 => AVCaptureSession.Preset352x288,
                             640 => AVCaptureSession.Preset640x480,
-                            1280 => AVCaptureSession.Preset1280x720,
+                            1280 => AVCaptureSession.PresetiFrame1280x720, // AVCaptureSession.Preset1280x720,
                             1920 => AVCaptureSession.Preset1920x1080,
                             _ => AVCaptureSession.PresetPhoto
                         };
@@ -192,7 +192,7 @@ internal class MauiCameraView : UIView, IAVCaptureVideoDataOutputSampleBufferDel
                         {
                             352 => AVCaptureSession.Preset352x288,
                             640 => AVCaptureSession.Preset640x480,
-                            1280 => AVCaptureSession.Preset1280x720,
+                            1280 => AVCaptureSession.PresetiFrame1280x720,// AVCaptureSession.Preset1280x720,
                             1920 => AVCaptureSession.Preset1920x1080,
                             _ => AVCaptureSession.PresetPhoto
                         };
