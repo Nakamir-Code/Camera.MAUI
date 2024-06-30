@@ -28,9 +28,8 @@
 		<PackageTags>csharp; dotnet; cross-platform; camera; cameraview; codebar; qr; qr-decoder; codebar-encoder; codebar-decoder; camera-component; camera-view;  plugin; maui; dotnet-maui;</PackageTags>
 		<Authors>hjam40</Authors>
 		<!--<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>-->
-		<Version>1.5.2-nakamir</Version>
-		<PackageReleaseNotes>Split barcode encoder/decoder in a different package. Fix some bugs
-</PackageReleaseNotes>
+		<Version>1.5.3-nakamir</Version>
+		<PackageReleaseNotes>16:9 aspect ratio and max 1080p resolution for Android</PackageReleaseNotes>
 		<!--<PackageLicenseFile>license.md</PackageLicenseFile>-->
 	</PropertyGroup>
 

@@ -691,10 +691,12 @@ internal class MauiCameraView: GridLayout
     {
         Size result = choices[0];
         int diference = 0;
+		// For now we limit the options to <= 1920x1080 16:9 ratio
+		int maxDifference = 1920 * 1080;
 
         foreach (Size size in choices)
         {
-            if (size.Width == size.Height * 4 / 3 && size.Width * size.Height > diference)
+            if (size.Width == size.Height * 16 / 9 && size.Width * size.Height > diference && size.Width * size.Height <= maxDifference)
             {
                 result = size;
                 diference = size.Width * size.Height;
