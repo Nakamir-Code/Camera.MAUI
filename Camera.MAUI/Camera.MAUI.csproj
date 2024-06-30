@@ -28,7 +28,7 @@
 		<PackageTags>csharp; dotnet; cross-platform; camera; cameraview; codebar; qr; qr-decoder; codebar-encoder; codebar-decoder; camera-component; camera-view;  plugin; maui; dotnet-maui;</PackageTags>
 		<Authors>hjam40</Authors>
 		<!--<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>-->
-		<Version>1.5-nakamir</Version>
+		<Version>1.5.1-nakamir</Version>
 		<PackageReleaseNotes>Split barcode encoder/decoder in a different package. Fix some bugs
 </PackageReleaseNotes>
 		<!--<PackageLicenseFile>license.md</PackageLicenseFile>-->

@@ -9,6 +9,7 @@ using CoreVideo;
 using Foundation;
 using MediaPlayer;
 using System.IO;
+using System.Linq;
 using UIKit;
 
 namespace Camera.MAUI.Platforms.Apple;
@@ -125,15 +126,15 @@ internal class MauiCameraView : UIView, IAVCaptureVideoDataOutputSampleBufferDel
                 {
                     try
                     {
-                        captureSession.SessionPreset = Resolution.Width switch
-                        {
-                            352 => AVCaptureSession.Preset352x288,
-                            640 => AVCaptureSession.Preset640x480,
-                            1280 => AVCaptureSession.PresetiFrame1280x720, // AVCaptureSession.Preset1280x720,
-                            1920 => AVCaptureSession.Preset1920x1080,
-                            _ => AVCaptureSession.PresetPhoto
-                        };
-                        frames = 0;
+						captureSession.SessionPreset = Resolution.Width switch
+						{
+							352 => AVCaptureSession.Preset352x288,
+							640 => AVCaptureSession.Preset640x480,
+							1280 => AVCaptureSession.Preset1280x720,
+							1920 => AVCaptureSession.Preset1920x1080,
+							_ => AVCaptureSession.PresetHigh
+						};
+						frames = 0;
                         captureDevice = camDevices.First(d => d.UniqueID == cameraView.Camera.DeviceId);
                         ForceAutoFocus();
                         captureInput = new AVCaptureDeviceInput(captureDevice, out var err);
@@ -148,7 +149,21 @@ internal class MauiCameraView : UIView, IAVCaptureVideoDataOutputSampleBufferDel
 
                         var movieFileOutputConnection = recordOutput.Connections[0];
                         movieFileOutputConnection.VideoOrientation = (AVCaptureVideoOrientation)UIDevice.CurrentDevice.Orientation;
-                        captureSession.StartRunning();
+                        						
+						AVVideoCodecType? codecType = null;
+						if (recordOutput.AvailableVideoCodecTypes.Contains(AVVideoCodecType.H264.GetConstant()))
+						{
+							codecType = AVVideoCodecType.H264; // Prefer H264 if available
+						}
+
+						// Apply the codec settings to the connection.
+						if (codecType.HasValue)
+						{
+							var outputSettings = new NSDictionary(AVVideo.CodecKey, new NSString(codecType.Value.GetConstant()));
+							recordOutput.SetOutputSettings(outputSettings, movieFileOutputConnection);
+						}
+
+						captureSession.StartRunning();
                         if (File.Exists(file)) File.Delete(file);
                         
                         recordOutput.StartRecordingToOutputFile(NSUrl.FromFilename(file), this);
@@ -192,7 +207,7 @@ internal class MauiCameraView : UIView, IAVCaptureVideoDataOutputSampleBufferDel
                         {
                             352 => AVCaptureSession.Preset352x288,
                             640 => AVCaptureSession.Preset640x480,
-                            1280 => AVCaptureSession.PresetiFrame1280x720,// AVCaptureSession.Preset1280x720,
+                            1280 => AVCaptureSession.Preset1280x720,
                             1920 => AVCaptureSession.Preset1920x1080,
                             _ => AVCaptureSession.PresetPhoto
                         };

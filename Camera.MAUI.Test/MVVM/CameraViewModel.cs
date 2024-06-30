@@ -169,11 +169,11 @@ public class CameraViewModel : INotifyPropertyChanged
             TakeSnapshot = true;
         });
 #if IOS
-        RecordingFile = Path.Combine(FileSystem.Current.CacheDirectory, "Video.mov");
+		RecordingFile = Path.Combine(FileSystem.Current.CacheDirectory, "Video.mov");
 #else
         RecordingFile = Path.Combine(FileSystem.Current.CacheDirectory, "Video.mp4");
 #endif
-        OnPropertyChanged(nameof(RecordingFile));
+		OnPropertyChanged(nameof(RecordingFile));
         StartRecording = new Command(() =>
         {
             AutoStartRecording = true;
